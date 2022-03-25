@@ -61,7 +61,7 @@ while True:
         images_a, images_b = images_a.cuda().detach(), images_b.cuda().detach()
 
         with Timer("Elapsed time in update: %f"):
-            # Main training code
+            # Main training code #xudong no train for the trainer itself; no call for it's forward function
             trainer.dis_update(images_a, images_b, config)
             trainer.gen_update(images_a, images_b, config)
             torch.cuda.synchronize()

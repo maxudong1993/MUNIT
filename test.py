@@ -43,7 +43,7 @@ opts.num_style = 1 if opts.style != '' else opts.num_style
 # Setup model and data loader
 config['vgg_model_path'] = opts.output_path
 if opts.trainer == 'MUNIT':
-    style_dim = config['gen']['style_dim']
+    style_dim = config['gen']['style_dim'] #length of style code--8
     trainer = MUNIT_Trainer(config)
 elif opts.trainer == 'UNIT':
     trainer = UNIT_Trainer(config)
@@ -92,7 +92,7 @@ with torch.no_grad():
         for j in range(opts.num_style):
             s = style[j].unsqueeze(0)
             outputs = decode(content, s)
-            outputs = (outputs + 1) / 2.
+            outputs = (outputs + 1) / 2. #why?
             path = os.path.join(opts.output_folder, 'output{:03d}.jpg'.format(j))
             vutils.save_image(outputs.data, path, padding=0, normalize=True)
     elif opts.trainer == 'UNIT':

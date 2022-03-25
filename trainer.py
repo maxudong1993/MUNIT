@@ -12,7 +12,7 @@ import os
 class MUNIT_Trainer(nn.Module):
     def __init__(self, hyperparameters):
         super(MUNIT_Trainer, self).__init__()
-        lr = hyperparameters['lr']
+        lr = hyperparameters['lr'] #0.0001
         # Initiate the networks
         self.gen_a = AdaINGen(hyperparameters['input_dim_a'], hyperparameters['gen'])  # auto-encoder for domain a
         self.gen_b = AdaINGen(hyperparameters['input_dim_b'], hyperparameters['gen'])  # auto-encoder for domain b

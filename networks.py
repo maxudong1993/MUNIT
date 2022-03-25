@@ -88,15 +88,15 @@ class MsImageDis(nn.Module):
 
 class AdaINGen(nn.Module):
     # AdaIN auto-encoder architecture
-    def __init__(self, input_dim, params):
+    def __init__(self, input_dim, params): #input_dim=3
         super(AdaINGen, self).__init__()
-        dim = params['dim']
-        style_dim = params['style_dim']
-        n_downsample = params['n_downsample']
-        n_res = params['n_res']
+        dim = params['dim'] #64
+        style_dim = params['style_dim'] #8
+        n_downsample = params['n_downsample'] #2
+        n_res = params['n_res'] #4
         activ = params['activ']
         pad_type = params['pad_type']
-        mlp_dim = params['mlp_dim']
+        mlp_dim = params['mlp_dim'] #MLP filtering number 256
 
         # style encoder
         self.enc_style = StyleEncoder(4, input_dim, dim, style_dim, norm='none', activ=activ, pad_type=pad_type)
@@ -106,7 +106,7 @@ class AdaINGen(nn.Module):
         self.dec = Decoder(n_downsample, n_res, self.enc_content.output_dim, input_dim, res_norm='adain', activ=activ, pad_type=pad_type)
 
         # MLP to generate AdaIN parameters
-        self.mlp = MLP(style_dim, self.get_num_adain_params(self.dec), mlp_dim, 3, norm='none', activ=activ)
+        self.mlp = MLP(style_dim, self.get_num_adain_params(self.dec), mlp_dim, 3, norm='none', activ=activ) # some linear layer
 
     def forward(self, images):
         # reconstruct an image
